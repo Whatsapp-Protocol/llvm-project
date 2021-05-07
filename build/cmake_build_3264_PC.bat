@@ -1,0 +1,10 @@
+@echo off
+
+set PATH=%PATH%;../build/cmake/windows/bin
+cd ..
+mkdir tmp_3264_pc
+
+cd tmp_3264_pc
+cmake ../llvm -G"Visual Studio 16 2019" -DCMAKE_CONFIGURATION_TYPES=Debug;Release;Release_MD -DLLVM_ENABLE_PROJECTS="clang" -Thost=x64 -DCLANG_BUILD_EXAMPLES=OFF -DCLANG_INCLUDE_TESTS=OFF -DCLANG_INCLUDE_DOCS=OFF -DLLVM_INCLUDE_TESTS=OFF -DLLVM_INCLUDE_EXAMPLES=OFF -DLLVM_INCLUDE_GO_TESTS=OFF
+pause
+@echo on
