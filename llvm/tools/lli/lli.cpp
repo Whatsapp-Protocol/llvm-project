@@ -14,6 +14,7 @@
 
 #include "ExecutionUtils.h"
 #include "RemoteJITUtils.h"
+#include "lli_export.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/ADT/Triple.h"
 #include "llvm/Bitcode/BitcodeReader.h"
@@ -426,7 +427,7 @@ void disallowOrcOptions();
 //===----------------------------------------------------------------------===//
 // main Driver function
 //
-int main(int argc, char **argv, char * const *envp) {
+int main(int argc, const char **argv, char * const *envp) {
   InitLLVM X(argc, argv);
 
   if (argc > 1)
@@ -1162,3 +1163,16 @@ std::unique_ptr<orc::shared::FDRawByteChannel> launchRemote() {
                                                          PipeFD[0][1]);
 #endif
 }
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+int cde_execute(int Argc, const char **Argv) {
+  return main(Argc, Argv, nullptr);
+}
+
+void cde_set_error_fd(int fd) {}
+void cde_set_out_fd(int fd) {}
+#ifdef __cplusplus
+}
+#endif

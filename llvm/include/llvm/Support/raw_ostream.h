@@ -565,6 +565,8 @@ public:
 
 /// This returns a reference to a raw_fd_ostream for standard output. Use it
 /// like: outs() << "foo" << "bar";
+
+void set_out_fd(int fd);
 raw_fd_ostream &outs();
 
 /// This returns a reference to a raw_ostream for standard error.
@@ -572,6 +574,9 @@ raw_fd_ostream &outs();
 /// By default, the stream is tied to stdout to ensure stdout is flushed before
 /// stderr is written, to ensure the error messages are written in their
 /// expected place.
+
+void set_errors_fd(int fd);
+
 raw_fd_ostream &errs();
 
 /// This returns a reference to a raw_ostream which simply discards output.

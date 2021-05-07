@@ -1,0 +1,21 @@
+project(LLVM)
+cmake_minimum_required(VERSION 3.13.4)
+
+set(LLVM_BUILD_TESTS OFF)
+set(LLVM_INCLUDE_TESTS OFF)
+SET(LLVM_INCLUDE_GO_TESTS OFF)
+SET(LLVM_INCLUDE_EXAMPLES OFF)
+SET(LIBCLANG_BUILD_STATIC ON)
+SET(LLVM_ENABLE_PIC OFF)
+
+add_subdirectory(llvm)
+#add_subdirectory(test)
+
+
+
+
+
+
+
+
+

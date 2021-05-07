@@ -2,6 +2,8 @@ if ( LLVM_INCLUDE_UTILS )
   add_subdirectory(ChildTarget)
 endif()
 
+add_definitions(-DLLI_LIBRARY)
+
 set(LLVM_LINK_COMPONENTS
   CodeGen
   Core
@@ -49,7 +51,9 @@ if( LLVM_USE_PERF )
     )
 endif( LLVM_USE_PERF )
 
-add_llvm_tool(lli
+#llvm_add_library(lli SHARED add_llvm_tool
+
+llvm_add_library(lli SHARED
   lli.cpp
   ExecutionUtils.cpp
 

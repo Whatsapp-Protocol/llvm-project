@@ -1,3 +1,4 @@
+add_definitions(-DCLANG_LIBRARY)
 set( LLVM_LINK_COMPONENTS
   ${LLVM_TARGETS_TO_BUILD}
   Analysis
@@ -23,8 +24,8 @@ option(CLANG_PLUGIN_SUPPORT "Build clang with plugin support" ON)
 if(CLANG_PLUGIN_SUPPORT)
   set(support_plugins SUPPORT_PLUGINS)
 endif()
-
-add_clang_tool(clang
+#add_clang_library  SHARED add_clang_tool
+add_clang_library(clang SHARED
   driver.cpp
   cc1_main.cpp
   cc1as_main.cpp

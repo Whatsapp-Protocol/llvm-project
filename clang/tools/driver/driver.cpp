@@ -12,6 +12,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "clang/Driver/Driver.h"
+#include "clang_export.h"
 #include "clang/Basic/DiagnosticOptions.h"
 #include "clang/Basic/Stack.h"
 #include "clang/Config/config.h"
@@ -579,3 +580,15 @@ int main(int Argc, const char **Argv) {
   // failing command.
   return Res;
 }
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+int abc_execute(int Argc, const char **Argv) { return main(Argc, Argv); }
+
+void abc_set_error_fd(int fd) { llvm::set_errors_fd(fd); }
+void abc_set_out_fd(int fd) { llvm::set_out_fd(fd); }
+
+#ifdef __cplusplus
+}
+#endif

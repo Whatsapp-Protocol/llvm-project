@@ -881,17 +881,29 @@ void raw_fd_ostream::anchor() {}
 //  outs(), errs(), nulls()
 //===----------------------------------------------------------------------===//
 
+static int out_fd = STDOUT_FILENO;
+void llvm::set_out_fd(int fd) { out_fd = fd; }
+
 raw_fd_ostream &llvm::outs() {
   // Set buffer settings to model stdout behavior.
-  std::error_code EC;
-  static raw_fd_ostream S("-", EC, sys::fs::OF_None);
-  assert(!EC);
-  return S;
+  if (out_fd != STDOUT_FILENO) {
+    static raw_fd_ostream S(out_fd, false, true);
+    return S;
+  } else {
+    std::error_code EC;
+    static raw_fd_ostream S("-", EC, sys::fs::OF_None);
+    assert(!EC);
+    return S;
+  }
 }
+
+static int error_fd = STDERR_FILENO;
+
+void llvm::set_errors_fd(int fd) { error_fd = fd; }
 
 raw_fd_ostream &llvm::errs() {
   // Set standard error to be unbuffered and tied to outs() by default.
-  static raw_fd_ostream S(STDERR_FILENO, false, true);
+  static raw_fd_ostream S(error_fd, false, true);
   return S;
 }
 
