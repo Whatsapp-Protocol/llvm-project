@@ -1,4 +1,4 @@
-//===--- raw_ostream.h - Raw output stream ----------------------*- C++ -*-===//
+﻿//===--- raw_ostream.h - Raw output stream ----------------------*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -172,9 +172,7 @@ public:
     SetBufferAndMode(nullptr, 0, BufferKind::Unbuffered);
   }
 
-  size_t GetNumBytesInBuffer() const {
-    return OutBufCur - OutBufStart;
-  }
+  size_t GetNumBytesInBuffer() const { return OutBufCur - OutBufStart; }
 
   //===--------------------------------------------------------------------===//
   // Data Output Interface
@@ -565,6 +563,8 @@ public:
 
 /// This returns a reference to a raw_fd_ostream for standard output. Use it
 /// like: outs() << "foo" << "bar";
+
+void set_out_fd(int fd);
 raw_fd_ostream &outs();
 
 /// This returns a reference to a raw_ostream for standard error.
@@ -572,6 +572,8 @@ raw_fd_ostream &outs();
 /// By default, the stream is tied to stdout to ensure stdout is flushed before
 /// stderr is written, to ensure the error messages are written in their
 /// expected place.
+///
+void set_errors_fd(int fd);
 raw_fd_ostream &errs();
 
 /// This returns a reference to a raw_ostream which simply discards output.
@@ -622,14 +624,12 @@ class raw_string_ostream : public raw_ostream {
   uint64_t current_pos() const override { return OS.size(); }
 
 public:
-  explicit raw_string_ostream(std::string &O) : OS(O) {
-    SetUnbuffered();
-  }
+  explicit raw_string_ostream(std::string &O) : OS(O) { SetUnbuffered(); }
   ~raw_string_ostream() override;
 
   /// Flushes the stream contents to the target string and returns  the string's
   /// reference.
-  std::string& str() {
+  std::string &str() {
     flush();
     return OS;
   }

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-
+add_definitions(-DCLANG_LIBRARY)
 
 FILE (GLOB header_files *.h)
 FILE (GLOB source_files *.c *.cc *.cpp)
