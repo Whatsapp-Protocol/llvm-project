@@ -580,10 +580,10 @@ int main(int Argc, const char **Argv) {
 #ifdef __cplusplus
 extern "C" {
 #endif
-int abc_execute(int Argc, const char **Argv) { return main(Argc, Argv); }
+int clang_execute(int Argc, const char **Argv) { return main(Argc, Argv); }
 
-void abc_set_error_fd(int fd) { llvm::set_errors_fd(fd); }
-void abc_set_out_fd(int fd) { llvm::set_out_fd(fd); }
+void clang_set_error_fd(int fd) { llvm::set_errors_fd(fd); }
+void clang_set_out_fd(int fd) { llvm::set_out_fd(fd); }
 
 #ifdef __cplusplus
 }
